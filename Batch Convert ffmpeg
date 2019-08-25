@@ -1,0 +1,15 @@
+Simple code for use in terminal in a UNIX based OS to convert all files in a home directory to a given format. For easy OSX usage, simply drag the folder that contains your files onto your terminal application to open it as the specified home directory, and then copy and paste the required code. 
+For other UNIX based distros, simply ~cd to the required folder path, and then run the code. 
+
+for i in *.flac ; do 
+    ffmpeg -i "$i" -codec:a libmp3lame -q:a 0 -map_metadata 0 -id3v2_version 3 -write_id3v1 1 "$(basename "${i/.flac}")".mp3
+done
+
+This here will change all files in the .FLAC format in the directory to .mp3 files, while keeping any metadata and ensuring the highest quality encoding. It will allow for spaces in the given filename as well. 
+
+
+To use for other file types, simply change 'input' and 'output' in the following code to the desired file type input and output. 
+
+for i in *.input ; do 
+    ffmpeg -i "$i" -codec:a libmp3lame -q:a 0 -map_metadata 0 -id3v2_version 3 -write_id3v1 1 "$(basename "${i/.input}")".output
+done
